@@ -120,7 +120,9 @@ var getMockValue = function (version, schema) {
     break;
 
   case 'boolean':
-    if (version === '1.2' && !_.isUndefined(schema.defaultValue)) {
+    if (!_.isUndefined(schema.example)) {
+      value = schema.example;
+    } else if (version === '1.2' && !_.isUndefined(schema.defaultValue)) {
       value = schema.defaultValue;
     } else if (version === '2.0' && !_.isUndefined(schema.default)) {
       value = schema.default;
@@ -142,7 +144,9 @@ var getMockValue = function (version, schema) {
     break;
 
   case 'integer':
-    if (version === '1.2' && !_.isUndefined(schema.defaultValue)) {
+    if (!_.isUndefined(schema.example)) {
+      value = schema.example;
+    } else if (version === '1.2' && !_.isUndefined(schema.defaultValue)) {
       value = schema.defaultValue;
     } else if (version === '2.0' && !_.isUndefined(schema.default)) {
       value = schema.default;
@@ -177,7 +181,9 @@ var getMockValue = function (version, schema) {
     break;
 
   case 'number':
-    if (version === '1.2' && !_.isUndefined(schema.defaultValue)) {
+    if (!_.isUndefined(schema.example)) {
+      value = schema.example;
+    } else if (version === '1.2' && !_.isUndefined(schema.defaultValue)) {
       value = schema.defaultValue;
     } else if (version === '2.0' && !_.isUndefined(schema.default)) {
       value = schema.default;
@@ -197,7 +203,9 @@ var getMockValue = function (version, schema) {
     break;
 
   case 'string':
-    if (version === '1.2' && !_.isUndefined(schema.defaultValue)) {
+    if (!_.isUndefined(schema.example)) {
+      value = schema.example;
+    } else if (version === '1.2' && !_.isUndefined(schema.defaultValue)) {
       value = schema.defaultValue;
     } else if (version === '2.0' && !_.isUndefined(schema.default)) {
       value = schema.default;
