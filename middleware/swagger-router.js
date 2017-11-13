@@ -115,7 +115,11 @@ var getMockValue = function (version, schema) {
 
   switch (type) {
   case 'array':
-    value = [getMockValue(version, _.isArray(schema.items) ? schema.items[0] : schema.items)];
+    if (!_.isUndefined(schema.example)) {
+      value = schema.example;
+    } else {
+      value = [getMockValue(version, _.isArray(schema.items) ? schema.items[0] : schema.items)];
+    }
 
     break;
 
@@ -166,17 +170,21 @@ var getMockValue = function (version, schema) {
     break;
 
   case 'object':
-    value = {};
+    if (!_.isUndefined(schema.example)) {
+      value = schema.example;
+    } else {
+      value = {};
 
-    _.each(schema.allOf, function (parentSchema) {
-      _.each(parentSchema.properties, function (property, propName) {
+      _.each(schema.allOf, function (parentSchema) {
+        _.each(parentSchema.properties, function (property, propName) {
+          value[propName] = getMockValue(version, property);
+        });
+      });
+
+      _.each(schema.properties, function (property, propName) {
         value[propName] = getMockValue(version, property);
       });
-    });
-
-    _.each(schema.properties, function (property, propName) {
-      value[propName] = getMockValue(version, property);
-    });
+    }
 
     break;
 
